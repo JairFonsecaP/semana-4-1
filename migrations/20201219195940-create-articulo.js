@@ -21,15 +21,14 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       categoriaId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-      },
-      createdAt: {
         allowNull: false,
         references: {
           model: "Categoria",
           key: "id",
         },
+      },
+      createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
