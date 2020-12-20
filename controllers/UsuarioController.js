@@ -37,8 +37,66 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.register = async (req, res) => {
-  req.body.password = bcrypt.hashSync(req.body.password, 10);
-  const user = await db.Usuario.create(req.body);
-  res.status(200).json(user);
+exports.add = async (req, res, next) => {
+  try {
+    const registro = await db.Usuario.create(req.body);
+    res.status(200).json(registro);
+  } catch (error) {
+    res.status(500).send({
+      message: "Error",
+    });
+    next(error);
+  }
+};
+
+exports.update = async (req, res, next) => {
+  try {
+    const register = await db.Usuario.update(
+      {
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+      },
+      { where: { id: req.body.id } }
+    );
+    res.status(200).json(register);
+  } catch (error) {
+    res.status(500).send({
+      message: "error",
+    });
+    next(error);
+  }
+};
+
+exports.activate = async (req, res, next) => {
+  try {
+    const register = await db.Usuario.update(
+      {
+        estado: 1,
+      },
+      { where: { id: req.body.id } }
+    );
+    res.status(200).json(register);
+  } catch (error) {
+    res.status(500).send({
+      message: "error",
+    });
+    next(error);
+  }
+};
+
+exports.deactivate = async (req, res, next) => {
+  try {
+    const register = await db.Usuario.update(
+      {
+        estado: 0,
+      },
+      { where: { id: req.body.id } }
+    );
+    res.status(200).json(register);
+  } catch (error) {
+    res.status(500).send({
+      message: "error",
+    });
+    next(error);
+  }
 };
