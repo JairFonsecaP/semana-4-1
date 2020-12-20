@@ -37,6 +37,26 @@ exports.login = async (req, res, next) => {
   }
 };
 
+exports.list = async (req, res, next) => {
+  try {
+    const register = await db.Usuario.findAll();
+
+    if (register) {
+      res.status(200).json(register);
+    } else {
+      res.status(404).send({
+        message: "No hay categorias registradas",
+      });
+    }
+  } catch (error) {
+    console.log("Hola error");
+    res.status(500).send({
+      message: "Error",
+    });
+    next(error);
+  }
+};
+
 exports.add = async (req, res, next) => {
   try {
     const registro = await db.Usuario.create(req.body);
