@@ -3,7 +3,7 @@ const router = require("express").Router();
 const articuloController = require("../../controllers/ArticuloController");
 const auth = require("../../middlewares/auth");
 
-router.get("/list", articuloController.list);
+router.get("/list", auth.verifyUsuario, articuloController.list);
 router.post("/add", auth.verifyUsuario, articuloController.add);
 router.put("/update", auth.verifyUsuario, articuloController.update);
 router.put("/activate", auth.verifyUsuario, articuloController.activate);
