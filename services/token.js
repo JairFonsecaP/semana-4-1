@@ -21,7 +21,6 @@ module.exports = {
   },
   //permite decodificar el token
   decode: async (token) => {
-    console.log("Aqui vamos");
     try {
       const { id } = await jwt.verify(token, "config.secret");
 

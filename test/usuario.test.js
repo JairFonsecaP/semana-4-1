@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../index");
 
-describe("Articulos Endpoints", () => {
+describe("usuarios Endpoints", () => {
   var token;
 
   beforeAll((done) => {
@@ -17,43 +17,42 @@ describe("Articulos Endpoints", () => {
         done();
       });
   });
-  it("listas de articulos", async () => {
-    const res = await request(app)
-      .get("/api/articulo/list")
-      .set("token", token);
+  it("listas de usuarios", async () => {
+    const res = await request(app).get("/api/usuario/list").set("token", token);
     expect(res.statusCode).toEqual(200);
   });
 
-  it("agregar un nuevo articulo", async () => {
+  it("agregar un nuevo usuarios", async () => {
     const res = await request(app)
-      .post("/api/articulo/add")
+      .post("/api/usuario/add")
       .set("token", token)
       .send({
-        nombre: "articulo_test",
-        descripcion: "lorem limpsus",
-        codigo: "2222",
+        rol: "Administrador",
+        nombre: "Nombre_prueba",
+        password: "micontraseña",
+        email: "prueba3@gmail.com",
         estado: 1,
-        categoriaId: 1,
       });
     expect(res.statusCode).toEqual(200);
   });
 
-  it("update articulo", async () => {
+  it("update usuario", async () => {
     const res = await request(app)
-      .put("/api/articulo/update")
+      .put("/api/usuario/update")
       .set("token", token)
       .send({
-        nombre: "articulo_test_update",
-        descripcion: "lorem limpsus update",
-        codigo: "22225",
+        nombre: "nombre_update",
+        rol: "Administrador",
+        password: "micontraseña",
+        email: "prueba@gmail.com",
         id: 1,
       });
     expect(res.statusCode).toEqual(200);
   });
 
-  it("activate articulo", async () => {
+  it("deactivate usuario", async () => {
     const res = await request(app)
-      .put("/api/articulo/activate")
+      .put("/api/usuario/activate")
       .set("token", token)
       .send({
         id: 1,
@@ -61,9 +60,9 @@ describe("Articulos Endpoints", () => {
     expect(res.statusCode).toEqual(200);
   });
 
-  it("deactivate articulo", async () => {
+  it("activate usuario", async () => {
     const res = await request(app)
-      .put("/api/articulo/deactivate")
+      .put("/api/usuario/deactivate")
       .set("token", token)
       .send({
         id: 1,

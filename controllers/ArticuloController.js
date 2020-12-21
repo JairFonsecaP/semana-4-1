@@ -2,7 +2,15 @@ const db = require("../models");
 
 exports.list = async (req, res, next) => {
   try {
-    const register = await db.Articulo.findAll();
+    const register = await db.Articulo.findAll({
+      include: [
+        {
+          model: db.Categoria,
+          as: "Categoria",
+          attributes: ["id", "nombre", "descripcion"],
+        },
+      ],
+    });
     if (register) {
       res.status(200).json(register);
     } else {
