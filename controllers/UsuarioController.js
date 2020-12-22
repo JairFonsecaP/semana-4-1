@@ -17,7 +17,6 @@ exports.login = async (req, res, next) => {
       if (passwordIsValid) {
         const token = await tokenServices.encode(user);
         res.status(200).send({
-          user,
           tokenReturn: token,
           //user: user
         });
