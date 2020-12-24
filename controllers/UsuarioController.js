@@ -17,7 +17,6 @@ exports.login = async (req, res, next) => {
       if (passwordIsValid) {
         const token = await tokenServices.encode(user);
         res.status(200).send({
-          user,
           tokenReturn: token,
           //user: user
         });
@@ -75,7 +74,8 @@ exports.update = async (req, res, next) => {
     const register = await db.Usuario.update(
       {
         nombre: req.body.nombre,
-        descripcion: req.body.descripcion,
+        email: req.body.email,
+        rol: req.body.rol,
       },
       { where: { id: req.body.id } }
     );
