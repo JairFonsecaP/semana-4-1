@@ -59,6 +59,7 @@ exports.list = async (req, res, next) => {
 
 exports.add = async (req, res, next) => {
   try {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
     const registro = await db.Usuario.create(req.body);
     res.status(200).json(registro);
   } catch (error) {
